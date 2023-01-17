@@ -1,0 +1,16 @@
+background:
+  size: 500 # square 
+  use_synthetic_background: True
+  use_images_as_background: True
+  background_folder: "/home/cambel/dev/CUCUMBER-9/sythetic_data_generator/backgrounds" # Define folder with images to be used as background
+target_object_folder: "/home/cambel/dev/CUCUMBER-9/sythetic_data_generator/target_objects" # Objects of interest each in a folder with the name of its category/label
+output_folder: "/home/cambel/dev/CUCUMBER-9/sythetic_data_generator/output" # Here the synthetic images and labesl will be generated
+
+target_number_of_samples: 2000
+max_number_of_object_per_image: 6
+
+target_objects: 
+  cucumber:
+    max_size: 300 # pixels
+  cherry_tomato:
+    max_size: 100 # pixels
