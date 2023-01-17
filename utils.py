@@ -7,6 +7,7 @@ import random
 import math
 from pathlib import Path
 
+
 def PIL2cv(image):
     return np.asarray(image)
 
@@ -108,7 +109,6 @@ def random_overlay(background, foreground, scale_factor=(0.4, 0.8)):
     angle = random.randint(0, 360)
     foreground, new_w, new_h = rotate_image(foreground, angle)
 
-
     # Sample a random point to overlay the foreground image
     # Keeping the image within the background image
     min_x_y = 0
@@ -179,7 +179,7 @@ def rotate_image(image, angleInDegrees):
     rot[1, 2] += ((b_h / 2) - img_c[1])
 
     outImg = cv2.warpAffine(image, rot, (b_w, b_h), flags=cv2.WARP_FILL_OUTLIERS,
-                            borderMode=cv2.BORDER_CONSTANT, borderValue=(255,255,255,0))
+                            borderMode=cv2.BORDER_CONSTANT, borderValue=(255, 255, 255, 0))
     return outImg, b_w, b_h
 
 
@@ -222,3 +222,9 @@ def load_image(image_filename):
         return img
     else:
         raise ValueError("Unsupported image file extension")
+
+
+def draw_bounding_box(image, rbox):
+    box = np.int0(convert_rbox2poly(rbox))
+    cv2.drawContours(image, [box.reshape((4, 2))], 0, (255, 0, 0), 2)
+    return image

@@ -1,7 +1,6 @@
 import cv2
-import random
-
 import glob
+import random
 import yaml
 
 from utils import *
@@ -56,7 +55,7 @@ def save_annotations(output_folder, image, annotations):
     file_counter += 1
 
 
-def generate_sample(num_of_objs=1, background_type="RANDOM"):
+def generate_sample(num_of_objs=1, background_type="RANDOM", save_to_file=False, show_bounding_box=False):
     # Set background
     if background_type == "IMAGE":
         background = load_image(random.choice(background_files))
@@ -90,12 +89,20 @@ def generate_sample(num_of_objs=1, background_type="RANDOM"):
             raise Exception()
         annotations.append(convert_rbox2poly(
             rbox).tolist() + [target_object, 0])
+        
+        if show_bounding_box:
+            background = draw_bounding_box(background, rbox)
 
-    save_annotations(config["output_folder"], background, annotations)
+    if save_to_file:
+        save_annotations(config["output_folder"], background, annotations)
+    else:
+        show_image(background)
 
-# main loop
+# generate_sample(5, "IMAGE", show_bounding_box=True)
+
+# # main loop
 for _ in tqdm(range(config['target_number_of_samples'])):
     num_of_objs = random.randint(3, config['max_number_of_object_per_image'])
     background_type = random.choice(["RANDOM", "IMAGE", "IMAGE", "IMAGE"])
-    generate_sample(num_of_objs, background_type)
+    generate_sample(num_of_objs, background_type, save_to_file=True)
 
