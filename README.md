@@ -1,6 +1,12 @@
 # synthetic-dataset-generation
 Creating synthetic dataset for object classification with rotated bounding boxes
 
+# Dependencies
+
+```shell
+pip install randimage numpy opencv-python matplotlib pyyaml tqdm
+```
+
 # Instructions
 ## 1. Preprocessing
 Prepare target objects:
